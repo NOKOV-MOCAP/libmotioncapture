@@ -100,6 +100,7 @@ if (LIBMOTIONCAPTURE_ENABLE_OPTITRACK_CLOSED_SOURCE)
       src/optitrack_closed_source.cpp
     )
     set(my_link_directories
+      ${my_link_directories}
       ${NATNET_SDK_DIR}/lib/ubuntu
     )
     set(my_libraries
