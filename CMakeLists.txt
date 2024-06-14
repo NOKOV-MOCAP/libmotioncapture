@@ -134,6 +134,9 @@ endif()
 if (LIBMOTIONCAPTURE_ENABLE_NOKOV)
   message("including nokov")
 
+  EXECUTE_PROCESS( COMMAND uname -m COMMAND tr -d '\n' OUTPUT_VARIABLE ARCHITECTURE )
+  message( STATUS "Architecture: ${ARCHITECTURE}" )
+
   add_definitions(-DENABLE_NOKOV)
   set(my_include_directories
     ${my_include_directories}
@@ -143,13 +146,20 @@ if (LIBMOTIONCAPTURE_ENABLE_NOKOV)
     ${my_files}
     src/nokov.cpp
   )
-  set(my_link_directories
-    ${my_link_directories}
-    ${NOKOV_SDK_DIR}/lib
-)
+
+  if (${ARCHITECTURE} MATCHES "arm")
+    set(my_link_directories ${my_link_directories} ${NOKOV_SDK_DIR}/lib/armhf)    
+  elseif (${ARCHITECTURE} MATCHES "aarch")
+    set(my_link_directories ${my_link_directories} ${NOKOV_SDK_DIR}/lib/aarch64)  
+  else()
+    set(my_link_directories ${my_link_directories} ${NOKOV_SDK_DIR}/lib/x64)
+  endif()
+
+  message(STATUS "Link to nokov library directory:${my_link_directories}")
+
   set(my_libraries
     ${my_libraries}
-    SeekerSDKClient
+    nokov_sdk
   )
 endif()
 
