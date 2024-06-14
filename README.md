@@ -25,7 +25,7 @@ By default, `libmotioncapture` supports the following hardware:
 - Qualisys - SDK git submodule
 - OptiTrack - binary parsing over network (no dependency)
 - VRPN - SDK git submodule
-- NOKOV - manually obtain SDK and copy to deps/nokov_sdk/ and copy the .so file to the /lib or /usr/lib.
+- NOKOV - manually obtain SDK and copy to deps/nokov_sdk/
 - FZMotion - no dependency
 - Motion Analysis - manually obtain SDK and copy to deps/cortex_sdk_linux/
 
