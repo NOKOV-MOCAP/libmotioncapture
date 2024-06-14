@@ -6,9 +6,9 @@
 #include <unordered_map>
 #include <Eigen/Geometry> 
 //#include <ros/ros.h>
-#include "SeekerSDKCAPI.h"
+#include "NokovSDKCAPI.h"
 // NOKOV
-#include "SeekerSDKClient.h"
+#include "NokovSDKClient.h"
 
 namespace libmotioncapture {
 
@@ -94,7 +94,7 @@ namespace libmotioncapture {
         int updateFrequency = 100;
         bool enableFixedUpdate = false;
         sDataDescriptions* pBodyDefs = nullptr;
-        SeekerSDKClient* pClient = nullptr;
+        NokovSDKClient* pClient = nullptr;
         int lastFrame = 0;
         std::unordered_map<std::string, size_t> bodyMap;
 
@@ -143,9 +143,9 @@ namespace libmotioncapture {
     {
         pImpl = new MotionCaptureNokovImpl;
 
-        SeekerSDKClient* theClient = new SeekerSDKClient();
+        NokovSDKClient* theClient = new NokovSDKClient();
         unsigned char version[4] = {0};
-        theClient->SeekerSDKVersion(version);
+        theClient->NokovSDKVersion(version);
         {
             std::stringstream sstr;
             sstr << (int)version[0] << "." << (int)version[1] << "." << (int)version[2] << "." << (int)version[3];
