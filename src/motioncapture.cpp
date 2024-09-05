@@ -219,10 +219,10 @@ namespace libmotioncapture {
     else if (type == "fzmotion")
     {
       mocap = libmotioncapture::MotionCaptureFZMotion::getInstance(
-        getString(cfg, "local_IP", "localhost"),
-        getInt(cfg, "local_port", 1510),
+        getString(cfg, "local_IP", "0.0.0.0"),
+        getInt(cfg, "local_port", 9762),
         getString(cfg, "hostname", "fzmotion"),
-        getInt(cfg, "remote_port", 1510));
+        getInt(cfg, "remote_port", 9761));
     }
 #endif
     else

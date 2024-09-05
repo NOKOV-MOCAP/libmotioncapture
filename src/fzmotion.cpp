@@ -54,10 +54,8 @@ namespace libmotioncapture {
         this->m_strRemoteIP = strRemoteIP;
         this->m_iRemoteCPort = iRemotePort;
         
-        cout << this->m_strLocalIP << this->m_iLocalCPort << endl;
         this->m_localCEndpoint = udp::endpoint(address_v4::from_string(this->m_strLocalIP), this->m_iLocalCPort);
 
-        cout << this->m_strRemoteIP << this->m_iRemoteCPort << endl;
         udp::resolver::query query(udp::v4(), this->m_strRemoteIP, std::to_string(this->m_iRemoteCPort));
         this->m_remoteCEndpoint = *this->m_Resolver.resolve(query);
 
@@ -153,14 +151,14 @@ namespace libmotioncapture {
 				cout << "Receved package is not tag list." << endl;
 				continue;
 			}
+            //parse received data
+            parseRigidbodyTagList(pBuffer, this->m_mapRigidbodyTagList);
 	        bTagListReceived = true;
 	        requestTagList.detach();
 	        EmptyBuffer(pBuffer, MAX_PACKET_SIZE);
 			break;
         };
 
-        //parse received data
-        parseRigidbodyTagList(pBuffer, this->m_mapRigidbodyTagList);
         ReleaseBuffer(pBuffer);
 
         //joint multicast group
