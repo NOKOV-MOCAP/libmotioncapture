@@ -111,13 +111,14 @@ namespace libmotioncapture {
           // printf("Dataset %d\n", i);
 
           int type = 0; memcpy(&type, ptr, 4); ptr += 4;
+          int description_size = 0;
           // printf("Type : %d\n", i, type);
 
           if ((major == 4 && minor >= 1) || major > 4)
           {
             // If the NatNet version is 4.1 or greater, next four bytes represent
             // the number of bytes in the dataset. Just skip them.
-            ptr += 4;
+            memcpy(&description_size, ptr, 4); ptr += 4;
           }
 
           if(type == 0)   // markerset
@@ -172,6 +173,12 @@ namespace libmotioncapture {
                 }
               }
             }
+          }
+          else if ((major == 4 && minor >= 1) || major > 4)
+          {
+            // We got a description_size for > 4.1, which is simpler to discard
+            // for unsuported datatypes
+            ptr += description_size;
           }
           else if(type ==2)   // skeleton
           {
