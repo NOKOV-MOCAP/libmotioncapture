@@ -33,7 +33,7 @@ jobs:
         pip3 wheel dist/*.tar.gz
 
     - name: Upload Build Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: source-build
         path: "dist/*.tar.gz"
@@ -61,7 +61,7 @@ jobs:
       run: tools/build/build-wheels.sh ${{ matrix.python }}
 
     - name: Upload Build Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: linux-build
         path: "dist/*.whl"
@@ -93,7 +93,7 @@ jobs:
         run: python setup.py bdist_wheel
 
       - name: Upload Build Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: macos-build
           path: "dist/*.whl"
@@ -135,7 +135,7 @@ jobs:
           CMAKE_TOOLCHAIN_FILE: "C:/vcpkg/scripts/buildsystems/vcpkg.cmake"
       
       - name: Upload Build Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: win-build
           path: "dist/*.whl"
