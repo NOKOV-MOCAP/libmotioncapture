@@ -63,11 +63,11 @@ jobs:
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: linux-build
+        name: linux-build-${{ strategy.job-index }}
         path: "dist/*.whl"
 
   MacOS:
-    runs-on: macos-12
+    runs-on: macos-14
     needs: Source
 
     strategy:
@@ -95,7 +95,7 @@ jobs:
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: macos-build
+          name: macos-build-${{ strategy.job-index }}
           path: "dist/*.whl"
 
   Windows:
@@ -137,7 +137,7 @@ jobs:
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: win-build
+          name: win-build-${{ strategy.job-index }}
           path: "dist/*.whl"
 
   Publish:
@@ -152,15 +152,15 @@ jobs:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
     steps:
     # download all the artifacts
-    - uses: actions/download-artifact@v3
+    - uses: actions/download-artifact@v4
 
     - name: Move all files into the dist folder
       run: |
         mkdir dist
         mv source-build/* dist
-        mv linux-build/* dist
-        mv macos-build/* dist
-        mv win-build/* dist
+        mv linux-build-*/* dist
+        mv macos-build-*/* dist
+        mv win-build-*/* dist
         ls -R dist
 
     - uses: actions/setup-python@v4
