@@ -91,7 +91,10 @@ jobs:
           pip install cmake ninja wheel
 
       - name: Build
-        run: python setup.py bdist_wheel
+        run: |
+          export LDFLAGS="-L/opt/homebrew/opt/boost@1.85/lib"
+          export CPPFLAGS="-I/opt/homebrew/opt/boost@1.85/include"
+          python setup.py bdist_wheel
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
