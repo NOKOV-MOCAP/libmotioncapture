@@ -87,7 +87,7 @@ jobs:
       # Using older boost version to avoid compiler errors with io_service
       - name: Install dependencies
         run: |
-          brew install eigen boost@1.86
+          brew install eigen boost@1.85
           pip install cmake ninja wheel
 
       - name: Build
